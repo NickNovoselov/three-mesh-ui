@@ -1,6 +1,5 @@
 
-import { Color } from 'three';
-import { CanvasTexture } from 'three';
+import { Color, Texture } from 'three';
 
 /** List the default values of the lib components */
 export default {
@@ -33,12 +32,13 @@ export default {
 
 function DefaultBackgroundTexture() {
 
-	const ctx = document.createElement('canvas').getContext('2d');
-	ctx.canvas.width = 1;
-	ctx.canvas.height = 1;
-	ctx.fillStyle = '#ffffff';
-	ctx.fillRect(0, 0, 1, 1);
-	const texture = new CanvasTexture(ctx.canvas);
+	const image = new Image();
+	image.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdj+P///38ACfsD/QVDRcoAAAAASUVORK5CYII=';
+	image.onload = () => {
+		texture.needsUpdate = true;
+	};
+	const texture = new Texture(image);
+	texture.needsUpdate = true;
 	texture.isDefault = true;
 	return texture;
 
